@@ -22,3 +22,42 @@ for(let i = 0; i<copyButton.length; i++){
 
 
 
+const callButtons = document.querySelectorAll('#btn-call');
+callButtons.forEach((button) => {
+  button.addEventListener('click', function () {
+    const card = this.closest('#card');
+    const title = card.querySelector('#title').innerText;
+    const number = card.querySelector('#number').innerText;
+
+    const coin = document.getElementById('coins').innerText;
+
+    if (coin == 0) {
+      alert(" You don't have enough coin ");
+    } 
+    else {
+      document.getElementById('coins').innerText = document.getElementById('coins').innerText - 20;
+      const historyContainer = document.getElementById('call-history-container');
+      const card = document.createElement('div');
+      card.className =
+        "bg-[#FAFAFA] mt-5 p-4 rounded-md flex justify-between items-center";
+
+      card.innerHTML = `
+        <div>
+          <h1 class="text-[0.875rem] font-bold">${title}</h1>
+          <p class="text-[0.875rem] text-[#5C5C5C] font-normal">${number}</p>
+        </div>
+        <p class="text-[0.875rem]">${new Date().toLocaleTimeString("en-US", {
+          our12: true,
+        })}
+        </p>`;
+      historyContainer.appendChild(card);
+      alert(` Calling ${title}  ${number}`);
+    }
+  });
+});
+
+const clearButton = document.getElementById('btn-clear');
+clearButton.addEventListener('click', function () {
+  const historyContainer = document.getElementById('call-history-container');
+  historyContainer.innerHTML = '';
+});
